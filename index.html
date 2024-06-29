@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satış Uygulaması</title>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <script src="assets/js/satis.js" defer></script>
+  <style>
+    label:has(:disabled) {
+      text-decoration: line-through;
+    }
+
+    .formInRow {
+      display: grid;
+      grid-template-columns: 2fr repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .formInRow > * {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h3>Ürün Listesi</h3>
+  <form id="salesForm">
+    <ul id="productList"></ul>
+    <p>
+      Ödeme Türü
+      <label><input checked required type="radio" name="paymentType" value="1"> Kredi Kartı</label>
+      <!-- <label>
+        <input required type="radio" name="paymentType" value="2"> Nakit
+        <input disabled type="number" id="paidTotalInput" name="paidTotal" placeholder="Rakam Giriniz">
+      </label> -->
+    </p>
+    <button>Satış Yap</button>
+  </form>
+
+  <h6>Toplam Satış: <span id="salesTotal">0</span> TL</h6>
+
+  <h3>Stok</h3>
+  
+  <fieldset>
+    <legend>Ürün Ekle</legend>
+    <form id="newProductForm" class="formInRow">
+      <input required name="name" type="text" placeholder="Ürün Adı">
+      <input required name="emoji" type="text" placeholder="Emoji">
+      <input required name="price" type="number" placeholder="Fiyat">
+      <input required name="stock" type="number" placeholder="Stok">
+      <button>Ekle</button>
+    </form>
+  </fieldset>
+</body>
+</html>
