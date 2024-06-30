@@ -44,6 +44,12 @@ function renderProducts() {
 }
 
 function calculateSalesTotal() {
+  // let total = 0;
+  // for (let i = 0; i < sales.length; i++) {
+  //   total += sales[i].price;
+  // }
+  // salesTotal.innerText = total;
+
   salesTotal.innerText = sales.reduce((total, current) => total + current.price, 0);
 }
 
@@ -110,8 +116,47 @@ function handleNewProduct(e) {
   renderProducts();
 }
 
+function handleEditProduct(e) {
+  e.preventDefault();
+  let formData = new FormData(editProductForm);
+  let formObj = Object.fromEntries(formData);
+
+  formObj.price = Number(formObj.price);
+  formObj.stock = Number(formObj.stock);
+
+  let product = products.find(x => x.name === formObj.name);
+  if(product) {
+    product.emoji = formObj.emoji
+    product.price = formObj.price
+    product.stock = formObj.stock
+  } else {
+    alert('Bu isimde bir ürün bulunmamaktadır. Kontrol edip tekrar deneyiniz.');
+  }
+
+  editProductForm.reset();
+  renderProducts();
+}
+
+function handleDeleteProduct(e) {
+  e.preventDefault();
+  let formData = new FormData(editProductForm);
+  let formObj = Object.fromEntries(formData);
+
+  let productIndex = products.findIndex(x => x.name === formObj.name);
+  if (productIndex > -1) {
+    products.splice(productIndex, 1);
+  } else {
+    alert('Bu isimde bir ürün bulunmamaktadır. Kontrol edip tekrar deneyiniz.');
+  }
+
+  editProductForm.reset();
+  renderProducts();
+}
+
 function bindEditorEvents() {
   newProductForm.addEventListener('submit', handleNewProduct);
+  editProductForm.addEventListener('submit', handleEditProduct);
+  document.querySelector('#deleteBtn').addEventListener('click', handleDeleteProduct);
 }
 
 function init() {
